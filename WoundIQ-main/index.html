@@ -1,0 +1,2750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Wound-IQ is the AI-powered wound intelligence platform that detects deterioration before it becomes visible — enabling earlier intervention, better outcomes, and stronger clinical oversight.">
+  <title>WoundIQ — AI-Powered Wound Intelligence</title>
+  <link rel="icon" type="image/png" href="./logo.png">
+  <link rel="apple-touch-icon" href="./logo.png">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="WoundIQ — AI-Powered Wound Intelligence">
+  <meta property="og:description" content="Wound-IQ detects wound deterioration before it becomes visible — enabling earlier intervention, better outcomes, and stronger clinical oversight.">
+  <meta property="og:image" content="./logo.png">
+  <meta property="og:url" content="https://woundiq.com">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="WoundIQ — AI-Powered Wound Intelligence">
+  <meta name="twitter:description" content="AI-powered wound intelligence platform that detects deterioration before it becomes visible.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    /* ════════════════════════════════════════════════════════════════
+       WOUNDIQ DESIGN SYSTEM — SINGLE-PAGE SCROLL LANDING PAGE
+       Palette:
+         --page-bg: #F5F8EF (soft warm off-white / mint studio)
+         --forest-green: #08482D (deep forest-green primary)
+         --forest-hover: #0c5c3b
+         --forest-light: rgba(8, 72, 45, 0.08)
+         --mint-badge: #DAE7C7 (light green pill badge)
+         --ink: #101410 (tight bold headlines & primary text)
+         --subline: #5E5E61 (supporting text)
+         --card-bg: #FFFFFF
+         --card-border: rgba(8, 72, 45, 0.12)
+       ════════════════════════════════════════════════════════════════ */
+
+    :root {
+      --u: min(100vw / 1440, 100vh / 1080);
+      --page-bg: #F5F8EF;
+      --forest-green: #08482D;
+      --forest-hover: #0c5c3b;
+      --forest-light: rgba(8, 72, 45, 0.08);
+      --mint-badge: #DAE7C7;
+      --ink: #101410;
+      --subline: #5E5E61;
+      --card-bg: #FFFFFF;
+      --card-border: rgba(8, 72, 45, 0.12);
+      --radius-card: 20px;
+      --radius-pill: 9999px;
+      --shadow-soft: 0 10px 30px rgba(8, 72, 45, 0.06);
+      --shadow-hover: 0 16px 40px rgba(8, 72, 45, 0.12);
+      --font-headline: 'Inter Tight', sans-serif;
+      --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --nav-height: 80px;
+      /* Legacy variable aliases used by chatbot JS in main.js */
+      --teal-600: #08482D;
+      --text-body: #5E5E61;
+      --charcoal: #101410;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--page-bg);
+    }
+
+    body {
+      width: 100%;
+      min-height: 100vh;
+      background-color: var(--page-bg);
+      font-family: var(--font-ui);
+      color: var(--ink);
+      overflow-x: hidden;
+      overflow-y: auto;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ── Anchor Scroll Margin for Sticky Nav ── */
+    section[id], header[id] {
+      scroll-margin-top: 90px;
+    }
+
+    /* ── STICKY TOP NAVIGATION BAR ── */
+    .sticky-nav-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: var(--nav-height);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      background: transparent;
+      border-bottom: 1px solid transparent;
+    }
+
+    .sticky-nav-header.is-scrolled {
+      background: rgba(245, 248, 239, 0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(8, 72, 45, 0.1);
+      box-shadow: 0 4px 20px rgba(8, 72, 45, 0.05);
+    }
+
+    .nav-inner {
+      width: 100%;
+      max-width: 1440px;
+      height: 100%;
+      padding: 0 calc(37 * var(--u, 1px));
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--ink);
+      cursor: pointer;
+      z-index: 1010;
+    }
+
+    .nav-logo-mark {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-logo-mark img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .nav-logo-text {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 22px;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-link-item a {
+      font-family: var(--font-ui);
+      font-weight: 500;
+      font-size: 15.5px;
+      line-height: 1;
+      color: var(--ink);
+      text-decoration: none;
+      white-space: nowrap;
+      position: relative;
+      padding: 6px 0;
+      transition: color 0.18s ease;
+    }
+
+    .nav-link-item a:hover {
+      color: var(--forest-green);
+    }
+
+    .nav-link-item a.active {
+      color: var(--forest-green);
+      font-weight: 600;
+    }
+
+    .nav-link-item a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: var(--forest-green);
+      border-radius: 9999px;
+    }
+
+    .nav-buttons {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .pill-btn {
+      height: 40px;
+      border-radius: var(--radius-pill);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-ui);
+      font-weight: 500;
+      font-size: 13.5px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 0 18px;
+      cursor: pointer;
+    }
+
+    .pill-btn-white {
+      background: #FFFFFF;
+      color: var(--forest-green);
+      border: 1px solid rgba(8, 72, 45, 0.18);
+    }
+
+    .pill-btn-white:hover {
+      background: #F0F4EA;
+      border-color: var(--forest-green);
+      transform: translateY(-1px);
+    }
+
+    .pill-btn-green {
+      background: var(--forest-green);
+      color: #FFFFFF;
+      border: none;
+    }
+
+    .pill-btn-green:hover {
+      background: var(--forest-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(8, 72, 45, 0.25);
+    }
+
+    /* Mobile Hamburger */
+    .mobile-menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      position: relative;
+      z-index: 1020;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    .mobile-menu-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background-color: var(--ink);
+      border-radius: 2px;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+
+    .mobile-menu-toggle.is-active span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .mobile-menu-toggle.is-active span:nth-child(2) {
+      opacity: 0;
+    }
+    .mobile-menu-toggle.is-active span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* Mobile Nav Dropdown */
+    .mobile-nav-panel {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(245, 248, 239, 0.98);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      z-index: 1005;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.28s ease;
+    }
+
+    .mobile-nav-panel.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .mobile-nav-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .mobile-nav-links a {
+      font-family: var(--font-headline);
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--ink);
+      text-decoration: none;
+      transition: color 0.18s ease;
+    }
+
+    .mobile-nav-links a:hover,
+    .mobile-nav-links a.active {
+      color: var(--forest-green);
+    }
+
+    .mobile-nav-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 200px;
+      margin-top: 12px;
+    }
+
+    /* ════════════════════════════════════════════════════════════════
+       HERO / LANDING SECTION (Layout strictly preserved from brief)
+       Frame: 1440 × 1080 contained & centered
+       --u = min(100vw / 1440, 100vh / 1080)
+       ════════════════════════════════════════════════════════════════ */
+    .hero-section {
+      position: relative;
+      width: 100%;
+      height: calc(1080 * var(--u));
+      min-height: 720px;
+      max-height: 1080px;
+      background-color: var(--page-bg);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-frame {
+      position: relative;
+      width: calc(1440 * var(--u));
+      height: calc(1080 * var(--u));
+      background-color: var(--page-bg);
+      overflow: hidden;
+      contain: layout paint size;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* Badge at (575, 115) 292×37 */
+    .hero-badge {
+      position: absolute;
+      left: calc(575 * var(--u));
+      top: calc(115 * var(--u));
+      width: calc(292 * var(--u));
+      height: calc(37 * var(--u));
+      border-radius: var(--radius-pill);
+      background: var(--mint-badge);
+      color: var(--forest-green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-ui);
+      font-weight: 500;
+      font-size: calc(15 * var(--u));
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+      z-index: 25;
+      pointer-events: none;
+    }
+
+    /* Headline top 176 */
+    .hero-headline {
+      position: absolute;
+      left: 0;
+      top: calc(176 * var(--u));
+      width: 100%;
+      text-align: center;
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: calc(88 * var(--u));
+      line-height: calc(92 * var(--u));
+      color: var(--ink);
+      z-index: 25;
+      pointer-events: none;
+    }
+
+    .hl-line {
+      display: block;
+      margin: 0;
+    }
+
+    .hl-line-1 {
+      letter-spacing: -0.035em;
+    }
+
+    .hl-line-2 {
+      letter-spacing: -0.022em;
+    }
+
+    /* Subline top 394 */
+    .hero-subline {
+      position: absolute;
+      left: 0;
+      top: calc(394 * var(--u));
+      width: 100%;
+      text-align: center;
+      font-family: var(--font-ui);
+      font-weight: 400;
+      font-size: calc(20.8 * var(--u));
+      line-height: calc(32 * var(--u));
+      color: var(--subline);
+      z-index: 25;
+      pointer-events: none;
+    }
+
+    /* Hero CTA Button with Dashed Ring at (626, 901) */
+    .cta-ring-wrap {
+      position: absolute;
+      left: calc(626 * var(--u));
+      top: calc(901 * var(--u));
+      width: calc(190 * var(--u));
+      height: calc(74 * var(--u));
+      border: 1.6px dashed var(--forest-green);
+      border-radius: var(--radius-pill);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 35;
+      pointer-events: auto;
+    }
+
+    .hero-btn {
+      width: calc(172 * var(--u));
+      height: calc(58 * var(--u));
+      border-radius: var(--radius-pill);
+      background: var(--forest-green);
+      color: #FFFFFF;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-ui);
+      font-weight: 600;
+      font-size: calc(16.5 * var(--u));
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 calc(4 * var(--u)) calc(16 * var(--u)) rgba(8, 72, 45, 0.22);
+      transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, box-shadow 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .hero-btn:hover {
+      background: var(--forest-hover);
+      transform: scale(1.025);
+      box-shadow: 0 calc(8 * var(--u)) calc(24 * var(--u)) rgba(8, 72, 45, 0.32);
+    }
+
+    /* ── Curved Video Carousel Track & Cards ── */
+    .carousel-container {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      cursor: grab;
+      z-index: 20;
+      touch-action: pan-y;
+    }
+
+    .carousel-container.is-dragging {
+      cursor: grabbing;
+    }
+
+    .carousel-card {
+      position: absolute;
+      left: 0;
+      top: 0;
+      overflow: hidden;
+      box-shadow: none !important;
+      filter: none !important;
+      will-change: transform, clip-path;
+      pointer-events: none;
+    }
+
+    .card-media-wrap {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .card-poster,
+    .card-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
+    }
+
+    .card-poster {
+      z-index: 1;
+      opacity: 1;
+      transition: opacity 0.4s ease;
+    }
+
+    .card-video {
+      z-index: 2;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .card-video.is-ready {
+      opacity: 1;
+    }
+
+    /* Subtle Green Palette Overlay */
+    .card-tint-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, rgba(8, 72, 45, 0.08) 0%, rgba(218, 231, 199, 0.12) 100%);
+      z-index: 3;
+      pointer-events: none;
+    }
+
+
+
+    .svg-defs-container {
+      position: absolute;
+      width: 0;
+      height: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    /* ════════════════════════════════════════════════════════════════
+       CONTENT SECTIONS (COMMON THEMING & COMPONENTS)
+       ════════════════════════════════════════════════════════════════ */
+    .site-section {
+      width: 100%;
+      padding: 100px 24px;
+      position: relative;
+    }
+
+    .site-section.bg-alt {
+      background-color: rgba(218, 231, 199, 0.18);
+      border-top: 1px solid rgba(8, 72, 45, 0.06);
+      border-bottom: 1px solid rgba(8, 72, 45, 0.06);
+    }
+
+    .section-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 760px;
+      margin: 0 auto 56px auto;
+    }
+
+    .section-badge {
+      display: inline-block;
+      padding: 5px 16px;
+      border-radius: var(--radius-pill);
+      background: var(--mint-badge);
+      color: var(--forest-green);
+      font-size: 13.5px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      margin-bottom: 16px;
+    }
+
+    .section-heading {
+      font-family: var(--font-headline);
+      font-size: clamp(32px, 3.8vw, 46px);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      margin-bottom: 16px;
+    }
+
+    .section-sub {
+      font-size: clamp(16px, 1.4vw, 18px);
+      line-height: 1.65;
+      color: var(--subline);
+    }
+
+    /* ── Gentle Fade-Up Reveal Animation ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+
+    .reveal.is-revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+    }
+
+    /* ── Card Grids ── */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .content-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-card);
+      border: 1px solid var(--card-border);
+      padding: 32px 28px;
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .content-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-hover);
+      border-color: rgba(8, 72, 45, 0.28);
+    }
+
+    .card-icon-pill {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--mint-badge);
+      color: var(--forest-green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .card-icon-pill svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(--forest-green);
+      stroke-width: 2;
+      fill: none;
+    }
+
+    .card-title {
+      font-family: var(--font-headline);
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 12px;
+      letter-spacing: -0.015em;
+    }
+
+    .card-desc {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--subline);
+    }
+
+    /* ── The Problem Section Elements ── */
+    .quote-banner {
+      background: #FFFFFF;
+      border-radius: var(--radius-card);
+      border: 1px solid var(--card-border);
+      border-left: 5px solid var(--forest-green);
+      padding: 32px 36px;
+      margin-top: 36px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .quote-text {
+      font-family: var(--font-headline);
+      font-size: 20px;
+      font-style: italic;
+      color: var(--forest-green);
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+
+    .quote-author {
+      font-size: 14px;
+      color: var(--subline);
+      font-weight: 500;
+    }
+
+    /* ── The Solution Comparison Grid ── */
+    .compare-card-without {
+      background: #FFFBFB;
+      border: 1px solid rgba(239, 68, 68, 0.16);
+      border-radius: var(--radius-card);
+      padding: 36px 32px;
+    }
+
+    .compare-card-with {
+      background: #FFFFFF;
+      border: 2px solid var(--forest-green);
+      border-radius: var(--radius-card);
+      padding: 36px 32px;
+      box-shadow: 0 12px 36px rgba(8, 72, 45, 0.08);
+      position: relative;
+    }
+
+    .compare-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+      font-size: 12.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 16px;
+    }
+
+    .compare-badge.without {
+      background: #FEE2E2;
+      color: #DC2626;
+    }
+
+    .compare-badge.with {
+      background: var(--mint-badge);
+      color: var(--forest-green);
+    }
+
+    .compare-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .compare-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    .compare-icon-x {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #FEE2E2;
+      color: #DC2626;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 12px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .compare-icon-check {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--mint-badge);
+      color: var(--forest-green);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 13px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ── How It Works Step Cards ── */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 18px;
+    }
+
+    .step-card {
+      background: #FFFFFF;
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-card);
+      padding: 28px 20px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .step-num-pill {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--forest-green);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .step-title {
+      font-family: var(--font-headline);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .step-desc {
+      font-size: 13.5px;
+      line-height: 1.55;
+      color: var(--subline);
+    }
+
+    /* ════════════════════════════════════════════════════════════════
+       PRODUCT VIDEO SECTION (#video) — RESTORED ACCORDING TO SPEC
+       Placed right after How It Works (before Platform)
+       ════════════════════════════════════════════════════════════════ */
+    .video-section {
+      width: 100%;
+      padding: 100px 24px;
+      background: rgba(218, 231, 199, 0.12);
+      border-top: 1px solid rgba(8, 72, 45, 0.06);
+      border-bottom: 1px solid rgba(8, 72, 45, 0.06);
+    }
+
+    .video-container {
+      max-width: 980px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      border-radius: var(--radius-card);
+      overflow: hidden;
+      background: #000000;
+      box-shadow: 0 20px 50px rgba(8, 72, 45, 0.14);
+      border: 1px solid rgba(8, 72, 45, 0.15);
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .video-player {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .custom-play-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(16, 20, 16, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background-color 0.22s ease, opacity 0.22s ease;
+      z-index: 10;
+    }
+
+    .custom-play-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .custom-play-btn {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: var(--forest-green);
+      border: 3px solid rgba(255, 255, 255, 0.85);
+      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease;
+    }
+
+    .custom-play-btn svg {
+      width: 28px;
+      height: 28px;
+      fill: #FFFFFF;
+      margin-left: 4px;
+    }
+
+    .custom-play-overlay:hover .custom-play-btn {
+      transform: scale(1.08);
+      background: var(--forest-hover);
+    }
+
+    /* ── Pilot Program Section ── */
+    .pilot-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 36px;
+      background: #FFFFFF;
+      border-radius: var(--radius-card);
+      border: 1px solid var(--card-border);
+      padding: 44px 40px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .pilot-checklist {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .pilot-check-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14.5px;
+      color: var(--ink);
+    }
+
+    .pilot-check-item svg {
+      width: 17px;
+      height: 17px;
+      stroke: var(--forest-green);
+      stroke-width: 2.5;
+      fill: none;
+      flex-shrink: 0;
+    }
+
+    .pilot-card-box {
+      background: rgba(218, 231, 199, 0.25);
+      border: 1px solid rgba(8, 72, 45, 0.14);
+      border-radius: 16px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* ════════════════════════════════════════════════════════════════
+       DEMO SECTION (#demo) — INLINE REQUEST FORM
+       ════════════════════════════════════════════════════════════════ */
+    .demo-section {
+      width: 100%;
+      padding: 100px 24px;
+      background: #FFFFFF;
+      border-top: 1px solid rgba(8, 72, 45, 0.08);
+    }
+
+    .demo-container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .demo-form-wrapper {
+      max-width: 780px;
+      margin: 0 auto;
+      background: var(--page-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-card);
+      padding: 44px 48px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .form-group label span {
+      color: #DC2626;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid rgba(8, 72, 45, 0.2);
+      border-radius: 10px;
+      font-family: var(--font-ui);
+      font-size: 15px;
+      color: var(--ink);
+      background: #FFFFFF;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--forest-green);
+      box-shadow: 0 0 0 3px rgba(8, 72, 45, 0.15);
+    }
+
+    .form-group textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .form-submit-row {
+      margin-top: 10px;
+    }
+
+    .form-submit-btn {
+      width: 100%;
+      height: 54px;
+      border-radius: var(--radius-pill);
+      background: var(--forest-green);
+      color: #FFFFFF;
+      border: none;
+      font-family: var(--font-ui);
+      font-size: 16.5px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(8, 72, 45, 0.22);
+      transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .form-submit-btn:hover {
+      background: var(--forest-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(8, 72, 45, 0.3);
+    }
+
+    .form-trust-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 28px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(8, 72, 45, 0.1);
+    }
+
+    .form-trust-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      color: var(--subline);
+    }
+
+    .form-trust-item svg {
+      width: 16px;
+      height: 16px;
+      stroke: var(--forest-green);
+      stroke-width: 2;
+      fill: none;
+      flex-shrink: 0;
+    }
+
+    /* ── Footer ── */
+    .site-footer {
+      background: var(--ink);
+      color: #FFFFFF;
+      padding: 64px 24px 36px 24px;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 40px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .footer-brand-title {
+      font-family: var(--font-headline);
+      font-size: 22px;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 12px;
+    }
+
+    .footer-tagline {
+      font-size: 14px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.65);
+      max-width: 340px;
+    }
+
+    .footer-col-title {
+      font-family: var(--font-headline);
+      font-size: 15px;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 16px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-links a {
+      color: rgba(255, 255, 255, 0.65);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.18s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--mint-badge);
+    }
+
+    .footer-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 28px;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .footer-disclaimer {
+      margin-top: 16px;
+      font-size: 12px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.4);
+      text-align: center;
+    }
+
+    /* ════════════════════════════════════════════════════════════════
+       RESPONSIVE BREAKPOINTS (Desktop, Tablet, Mobile)
+       ════════════════════════════════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .nav-links {
+        gap: 20px;
+      }
+      .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .steps-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      .footer-top {
+        grid-template-columns: 1fr 1fr;
+      }
+      .pilot-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 820px) {
+      :root {
+        --u: 1px;
+      }
+
+      .nav-links,
+      .nav-buttons {
+        display: none !important;
+      }
+
+      .mobile-menu-toggle {
+        display: flex;
+      }
+
+      .hero-section {
+        height: auto;
+        min-height: 640px;
+        max-height: none;
+        padding-top: var(--nav-height);
+      }
+
+      .hero-frame {
+        width: 100vw;
+        height: auto;
+        min-height: 600px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 24px 20px 48px 20px;
+      }
+
+      .hero-badge {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: auto;
+        padding: 0 16px;
+        height: 34px;
+        margin-bottom: 20px;
+        font-size: 13.5px;
+      }
+
+      .hero-headline {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 100%;
+        font-size: clamp(36px, 8.5vw, 54px);
+        line-height: 1.1;
+        margin-bottom: 16px;
+      }
+
+      .hero-subline {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 100%;
+        font-size: 16px;
+        line-height: 1.55;
+        margin-bottom: 20px;
+      }
+
+      .mobile-cards-band {
+        position: relative;
+        width: 100vw;
+        height: 250px;
+        overflow: hidden;
+        margin: 10px 0 28px 0;
+      }
+
+      .cta-ring-wrap {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 196px;
+        height: 68px;
+      }
+
+      .hero-btn {
+        width: 178px;
+        height: 52px;
+        font-size: 15.5px;
+      }
+
+      .grid-2,
+      .grid-3,
+      .steps-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .demo-form-wrapper {
+        padding: 28px 20px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+
+      .form-trust-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+      }
+    }
+
+    /* ════════════════════════════════════════════════════════════════
+       CHATBOT WIDGET — Restyled for Current WoundIQ Design System
+       Original behavior and structure from index.html.original
+       Palette mapped: teal → forest-green, warm-white → page-bg
+       ════════════════════════════════════════════════════════════════ */
+
+    /* ── Floating Chat Toggle Button ── */
+    #wiq-chat-btn {
+      position: fixed;
+      right: 30px;
+      bottom: 30px;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--forest-green) 0%, #065a36 100%);
+      box-shadow: 0 4px 16px rgba(8, 72, 45, 0.22), 0 8px 32px rgba(8, 72, 45, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1100;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      outline: none;
+    }
+
+    #wiq-chat-btn:hover {
+      transform: translateY(-4px) scale(1.06);
+      box-shadow: 0 8px 24px rgba(8, 72, 45, 0.3), 0 12px 48px rgba(8, 72, 45, 0.16);
+    }
+
+    #wiq-chat-btn svg {
+      width: 26px;
+      height: 26px;
+      fill: #ffffff;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    #wiq-chat-btn.active svg {
+      transform: rotate(90deg);
+    }
+
+    /* ── Chat Widget Container ── */
+    #wiq-chat-widget {
+      position: fixed;
+      right: 30px;
+      bottom: 105px;
+      width: 380px;
+      height: calc(85vh - 105px);
+      max-height: 580px;
+      min-height: 400px;
+      border-radius: var(--radius-card);
+      background: #ffffff;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 20px 60px rgba(8, 72, 45, 0.14), 0 8px 24px rgba(8, 72, 45, 0.08);
+      z-index: 1100;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      opacity: 0;
+      transform: scale(0.92) translateY(16px);
+      pointer-events: none;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    #wiq-chat-widget.open {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+      pointer-events: all;
+    }
+
+    /* ── Chat Header ── */
+    #wiq-chat-header {
+      background: linear-gradient(135deg, var(--forest-green) 0%, #065a36 100%);
+      padding: 1.1rem 1.25rem;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      flex-shrink: 0;
+    }
+
+    .wiq-header-title-area {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .wiq-header-logo {
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+      object-fit: cover;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .wiq-header-title {
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 0.93rem;
+      letter-spacing: -0.01em;
+    }
+
+    #wiq-chat-close {
+      background: transparent;
+      border: none;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 1.35rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      transition: all 0.2s;
+    }
+
+    #wiq-chat-close:hover {
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+    }
+
+    /* ── Quick Action Buttons ── */
+    #wiq-chat-actions {
+      display: flex;
+      background: var(--page-bg);
+      border-bottom: 1px solid rgba(8, 72, 45, 0.08);
+      padding: 0.5rem;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .wiq-action-btn {
+      flex: 1;
+      background: #ffffff;
+      border: 1px solid var(--card-border);
+      color: var(--forest-green);
+      font-family: var(--font-ui);
+      font-weight: 700;
+      font-size: 0.76rem;
+      padding: 0.5rem 0.75rem;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      text-align: center;
+    }
+
+    .wiq-action-btn:hover {
+      background: rgba(218, 231, 199, 0.35);
+      border-color: var(--forest-green);
+      transform: translateY(-1px);
+    }
+
+    /* ── Chat Body (Message Area) ── */
+    #wiq-chat-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.25rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      background: var(--page-bg);
+      scroll-behavior: smooth;
+    }
+
+    #wiq-chat-body::-webkit-scrollbar { width: 5px; }
+    #wiq-chat-body::-webkit-scrollbar-track { background: transparent; }
+    #wiq-chat-body::-webkit-scrollbar-thumb { background: var(--mint-badge); border-radius: 3px; }
+    #wiq-chat-body::-webkit-scrollbar-thumb:hover { background: rgba(8, 72, 45, 0.25); }
+
+    /* ── Message Bubbles ── */
+    .wiq-msg {
+      display: flex;
+      flex-direction: column;
+      animation: wiq-fade-in 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      max-width: 85%;
+    }
+
+    @keyframes wiq-fade-in {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .wiq-msg.bot { align-self: flex-start; }
+    .wiq-msg.user { align-self: flex-end; }
+
+    .wiq-msg-bubble {
+      padding: 0.75rem 1rem;
+      font-size: 0.84rem;
+      line-height: 1.5;
+      font-family: var(--font-ui);
+    }
+
+    .wiq-msg.bot .wiq-msg-bubble {
+      background: #ffffff;
+      color: var(--ink);
+      border-radius: 16px 16px 16px 4px;
+      border: 1px solid rgba(8, 72, 45, 0.1);
+      box-shadow: 0 2px 8px rgba(8, 72, 45, 0.04);
+    }
+
+    .wiq-msg.user .wiq-msg-bubble {
+      background: linear-gradient(135deg, var(--forest-green) 0%, #065a36 100%);
+      color: #ffffff;
+      border-radius: 16px 16px 4px 16px;
+      box-shadow: 0 3px 12px rgba(8, 72, 45, 0.15);
+    }
+
+    .wiq-msg-time {
+      font-size: 0.66rem;
+      color: var(--subline);
+      margin-top: 3px;
+      padding: 0 4px;
+    }
+
+    .wiq-msg.bot .wiq-msg-time { align-self: flex-start; }
+    .wiq-msg.user .wiq-msg-time { align-self: flex-end; color: rgba(94, 94, 97, 0.65); }
+
+    /* ── Suggestion Chips ── */
+    #wiq-suggestions-area {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .wiq-suggestion-header {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--subline);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 0.25rem;
+    }
+
+    .wiq-suggestions-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .wiq-suggest-chip {
+      background: #ffffff;
+      border: 1px solid var(--card-border);
+      color: var(--forest-green);
+      padding: 0.45rem 0.8rem;
+      border-radius: var(--radius-pill);
+      font-family: var(--font-ui);
+      font-size: 0.76rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      text-align: left;
+      line-height: 1.3;
+    }
+
+    .wiq-suggest-chip:hover {
+      background: rgba(218, 231, 199, 0.35);
+      border-color: var(--forest-green);
+      color: var(--forest-green);
+      transform: translateY(-1.5px);
+      box-shadow: 0 2px 8px rgba(8, 72, 45, 0.08);
+    }
+
+    /* ── Search / Input Area ── */
+    #wiq-search-area {
+      padding: 0.75rem;
+      border-top: 1px solid rgba(8, 72, 45, 0.08);
+      background: #ffffff;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .wiq-search-wrapper {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    #wiq-search-input {
+      width: 100%;
+      border: 1.5px solid rgba(8, 72, 45, 0.18);
+      border-radius: 10px;
+      padding: 0.55rem 2.2rem 0.55rem 0.8rem;
+      font-family: var(--font-ui);
+      font-size: 0.84rem;
+      color: var(--ink);
+      background: #ffffff;
+      outline: none;
+      transition: all 0.25s;
+    }
+
+    #wiq-search-input:focus {
+      border-color: var(--forest-green);
+      box-shadow: 0 0 0 3px rgba(8, 72, 45, 0.12);
+    }
+
+    #wiq-search-clear {
+      position: absolute;
+      right: 10px;
+      background: transparent;
+      border: none;
+      color: var(--subline);
+      cursor: pointer;
+      font-size: 1rem;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+    }
+
+    #wiq-search-clear:hover {
+      background: rgba(218, 231, 199, 0.4);
+      color: var(--forest-green);
+    }
+
+    #wiq-search-submit {
+      background: linear-gradient(135deg, var(--forest-green) 0%, #065a36 100%);
+      border: none;
+      color: #ffffff;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 2px 8px rgba(8, 72, 45, 0.22);
+      flex-shrink: 0;
+    }
+
+    #wiq-search-submit:hover {
+      background: linear-gradient(135deg, var(--forest-hover) 0%, var(--forest-green) 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(8, 72, 45, 0.3);
+    }
+
+    #wiq-search-submit svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: #ffffff;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ── Typing Indicator ── */
+    .wiq-typing {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 6px;
+    }
+
+    .wiq-typing span {
+      width: 7px;
+      height: 7px;
+      background-color: var(--subline);
+      border-radius: 50%;
+      display: inline-block;
+      animation: wiq-typing-bounce 1.4s infinite both;
+      opacity: 0.6;
+    }
+
+    .wiq-typing span:nth-child(1) { animation-delay: 0s; }
+    .wiq-typing span:nth-child(2) { animation-delay: 0.2s; }
+    .wiq-typing span:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes wiq-typing-bounce {
+      0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+      40% { transform: scale(1.1); opacity: 1; }
+    }
+
+    /* ── Chatbot Responsive (Mobile) ── */
+    @media (max-width: 768px) {
+      #wiq-chat-btn.active {
+        display: none;
+      }
+
+      #wiq-chat-widget {
+        right: 0;
+        bottom: 0;
+        width: 100vw;
+        height: 100vh;
+        height: 100dvh;
+        max-height: none;
+        min-height: none;
+        border-radius: 0;
+        border: none;
+      }
+
+      #wiq-chat-header {
+        padding: 1.25rem 1rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .wiq-msg {
+        animation: none !important;
+      }
+      .wiq-typing span {
+        animation: none !important;
+        opacity: 0.6 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════ STICKY TOP NAVIGATION ═══════════════════════ -->
+  <header class="sticky-nav-header" id="main-nav">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-logo" aria-label="WoundIQ Home">
+        <div class="nav-logo-mark">
+          <img src="./logo.png" alt="WoundIQ Logo" width="32" height="32">
+        </div>
+        <span class="nav-logo-text">WoundIQ</span>
+      </a>
+
+      <!-- Desktop Nav Links (Smooth Scroll) -->
+      <nav class="nav-links" aria-label="Main Navigation">
+        <li class="nav-link-item"><a href="#problem">The Problem</a></li>
+        <li class="nav-link-item"><a href="#solution">The Solution</a></li>
+        <li class="nav-link-item"><a href="#how-it-works">How It Works</a></li>
+        <li class="nav-link-item"><a href="#platform">Platform</a></li>
+        <li class="nav-link-item"><a href="#benefits">Benefits</a></li>
+      </nav>
+
+      <!-- Desktop Nav Buttons (Smooth Scroll to Sections) -->
+      <div class="nav-buttons">
+        <a href="#pilot" class="pill-btn pill-btn-white" aria-label="Apply for a Pilot">Pilot</a>
+        <a href="#demo" class="pill-btn pill-btn-green" aria-label="Request a Demo">Demo</a>
+      </div>
+
+      <!-- Mobile Hamburger Toggle -->
+      <button class="mobile-menu-toggle" id="mobile-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Dropdown -->
+  <div class="mobile-nav-panel" id="mobile-panel" aria-hidden="true">
+    <ul class="mobile-nav-links">
+      <li><a href="#problem" class="mobile-link">The Problem</a></li>
+      <li><a href="#solution" class="mobile-link">The Solution</a></li>
+      <li><a href="#how-it-works" class="mobile-link">How It Works</a></li>
+      <li><a href="#video" class="mobile-link">Video Trailer</a></li>
+      <li><a href="#platform" class="mobile-link">Platform</a></li>
+      <li><a href="#benefits" class="mobile-link">Benefits</a></li>
+    </ul>
+    <div class="mobile-nav-buttons">
+      <a href="#pilot" class="pill-btn pill-btn-white mobile-link" style="text-align: center;">Apply for a Pilot</a>
+      <a href="#demo" class="pill-btn pill-btn-green mobile-link" style="text-align: center;">Request a Demo</a>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════ HERO SECTION (LAYOUT PRESERVED) ═══════════════════════ -->
+  <section class="hero-section" id="hero">
+    <div class="hero-frame">
+      <!-- Badge at (575, 115) 292×37 -->
+      <div class="hero-badge" id="hero-badge">AI-Powered Wound Intelligence</div>
+
+      <!-- Headline top 176 -->
+      <h1 class="hero-headline" id="hero-headline">
+        <span class="hl-line hl-line-1">Stop Reacting to Wounds.</span>
+        <span class="hl-line hl-line-2">Start Preventing Them.</span>
+      </h1>
+
+      <!-- Subline top 394 -->
+      <p class="hero-subline" id="hero-subline">
+        Wound-IQ helps healthcare organizations identify signs of wound deterioration<br>
+        before they become visible, enabling clinicians to intervene sooner,<br>
+        reduce preventable complications, and improve quality outcomes.
+      </p>
+
+      <!-- Carousel Container (with 10 healthcare videos) -->
+      <div class="mobile-cards-band" id="mobile-cards-band">
+        <div class="carousel-container" id="carousel-track" role="region" aria-label="Curved video carousel of healthcare and wound care in action">
+          <!-- Populated dynamically with 10 clinical clips -->
+        </div>
+      </div>
+
+      <!-- Button at (626, 901) inside dashed outline ring -->
+      <div class="cta-ring-wrap" id="cta-ring-wrap">
+        <a href="#demo" class="hero-btn" id="hero-btn" aria-label="Request a Demo">Request a Demo</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ 1. THE PROBLEM (#problem) ═══════════════════════ -->
+  <section class="site-section" id="problem" aria-labelledby="problem-heading">
+    <div class="section-container">
+      <div class="section-header reveal">
+        <span class="section-badge">The Challenge</span>
+        <h2 class="section-heading" id="problem-heading">Wound Care Today Is Reactive. Patients Pay the Price.</h2>
+        <p class="section-sub">
+          Every day, clinicians make critical wound care decisions using information that reflects the past rather than predicts the future. By the time deterioration is visible, complications are already underway.
+        </p>
+      </div>
+
+      <div class="grid-4">
+        <div class="content-card reveal">
+          <div class="card-icon-pill">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          </div>
+          <h3 class="card-title">Delayed Visual Detection</h3>
+          <p class="card-desc">Wound deterioration begins subcutaneous days before visible surface warning signs appear, causing late clinical intervention.</p>
+        </div>
+
+        <div class="content-card reveal" style="transition-delay: 0.1s;">
+          <div class="card-icon-pill">
+            <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <h3 class="card-title">Preventable Complications</h3>
+          <p class="card-desc">Advanced pressure ulcers and surgical site breakdowns cause avoidable hospital readmissions and lengthy patient setbacks.</p>
+        </div>
+
+        <div class="content-card reveal" style="transition-delay: 0.2s;">
+          <div class="card-icon-pill">
+            <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <h3 class="card-title">Heavy Documentation Burden</h3>
+          <p class="card-desc">Manual paperwork and charting inconsistencies consume valuable nursing hours and expose organizations to survey deficiencies.</p>
+        </div>
+
+        <div class="content-card reveal" style="transition-delay: 0.3s;">
+          <div class="card-icon-pill">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3 class="card-title">Siloed Facility Oversight</h3>
+          <p class="card-desc">Clinical directors and executive leaders lack centralized visibility into healing trajectories across multiple facilities and care units.</p>
+        </div>
+      </div>
+
+      <div class="quote-banner reveal">
+        <p class="quote-text">"The issue is that traditional systems only show what has already happened. They rarely help clinicians identify what happens next."</p>
+        <p class="quote-author">— Clinical Leadership Perspective in Long-Term Care</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ 2. THE SOLUTION (#solution) ═══════════════════════ -->
+  <section class="site-section bg-alt" id="solution" aria-labelledby="solution-heading">
+    <div class="section-container">
+      <div class="section-header reveal">
+        <span class="section-badge">The Solution</span>
+        <h2 class="section-heading" id="solution-heading">Most Platforms Document Wounds. Wound-IQ Detects Risk.</h2>
+        <p class="section-sub">
+          By analyzing longitudinal clinical data, wound imagery, nutritional biomarkers, and healing velocity, Wound-IQ empowers care teams to intervene days before deterioration escalates. That difference changes outcomes.
+        </p>
+      </div>
+
+      <div class="grid-2">
+        <div class="compare-card-without reveal">
+          <span class="compare-badge without">Without Wound-IQ</span>
+          <h3 style="font-family: var(--font-headline); font-size: 22px; font-weight: 700; color: #101410; margin-bottom: 8px;">Reactive Care Model</h3>
+          <p style="font-size: 14.5px; color: var(--subline); line-height: 1.55;">Traditional care plans rely on visible evidence when complications are already entrenched.</p>
+          <ul class="compare-list">
+            <li class="compare-item">
+              <span class="compare-icon-x">✕</span>
+              <span>Deterioration detected visually — only when it is already advanced</span>
+            </li>
+            <li class="compare-item">
+              <span class="compare-icon-x">✕</span>
+              <span>Manual documentation creates compliance gaps and audit risks</span>
+            </li>
+            <li class="compare-item">
+              <span class="compare-icon-x">✕</span>
+              <span>Substantial clinical time consumed by routine forms and manual measurements</span>
+            </li>
+            <li class="compare-item">
+              <span class="compare-icon-x">✕</span>
+              <span>No cross-facility visibility or predictive trajectory tracking</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="compare-card-with reveal" style="transition-delay: 0.15s;">
+          <span class="compare-badge with">With Wound-IQ</span>
+          <h3 style="font-family: var(--font-headline); font-size: 22px; font-weight: 700; color: #101410; margin-bottom: 8px;">Predictive Intelligence</h3>
+          <p style="font-size: 14.5px; color: var(--subline); line-height: 1.55;">Proactive alerts detect deterioration up to 4.2 days earlier, protecting patients and staff.</p>
+          <ul class="compare-list">
+            <li class="compare-item">
+              <span class="compare-icon-check">✓</span>
+              <span><strong>AI identifies risk signals 4.2 days earlier</strong> before visible deterioration</span>
+            </li>
+            <li class="compare-item">
+              <span class="compare-icon-check">✓</span>
+              <span><strong>Automated, audit-ready documentation</strong> always in place for surveys</span>
+            </li>
+            <li class="compare-item">
+              <span class="compare-icon-check">✓</span>
+              <span><strong>Clinicians freed to deliver care</strong> rather than wrestling with paperwork</span>
+            </li>
+            <li class="compare-item">
+              <span class="compare-icon-check">✓</span>
+              <span><strong>Real-time predictive analytics</strong> across your entire healthcare organization</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ 3. HOW IT WORKS (#how-it-works) ═══════════════════════ -->
+  <section class="site-section" id="how-it-works" aria-labelledby="how-heading">
+    <div class="section-container">
+      <div class="section-header reveal">
+        <span class="section-badge">How It Works</span>
+        <h2 class="section-heading" id="how-heading">Intelligence Embedded into Clinical Workflows</h2>
+        <p class="section-sub">
+          Zero operational friction. Wound-IQ functions seamlessly in the background with standard devices and familiar assessment protocols already used by your nurses.
+        </p>
+      </div>
+
+      <div class="steps-grid">
+        <div class="step-card reveal">
+          <span class="step-num-pill">Step 01</span>
+          <h3 class="step-title">Capture</h3>
+          <p class="step-desc">Clinicians complete standard wound assessments and imagery using familiar workflows and existing mobile devices.</p>
+        </div>
+
+        <div class="step-card reveal" style="transition-delay: 0.1s;">
+          <span class="step-num-pill">Step 02</span>
+          <h3 class="step-title">Analyze</h3>
+          <p class="step-desc">Wound-IQ continuously analyzes perimeter changes, depth indicators, and longitudinal healing trends.</p>
+        </div>
+
+        <div class="step-card reveal" style="transition-delay: 0.2s;">
+          <span class="step-num-pill">Step 03</span>
+          <h3 class="step-title">Detect</h3>
+          <p class="step-desc">AI-powered early-warning models spot pressure trajectories associated with impending deterioration.</p>
+        </div>
+
+        <div class="step-card reveal" style="transition-delay: 0.3s;">
+          <span class="step-num-pill">Step 04</span>
+          <h3 class="step-title">Alert</h3>
+          <p class="step-desc">Clinically meaningful, prioritized alerts notify care teams days before visible wound breakdown occurs.</p>
+        </div>
+
+        <div class="step-card reveal" style="transition-delay: 0.4s;">
+          <span class="step-num-pill">Step 05</span>
+          <h3 class="step-title">Act</h3>
+          <p class="step-desc">Timely intervention prevents complications, improves quality metrics, and optimizes clinical resources.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ 4. RESTORED PRODUCT VIDEO SECTION (#video) ═══════════════════════ -->
+  <!-- Placed right after "How It Works" and before "Platform" as specified in Requirement 4 -->
+  <section class="video-section" id="video" aria-labelledby="video-heading">
+    <div class="video-container">
+      <div class="section-header reveal" style="margin-bottom: 36px;">
+        <span class="section-badge">See Wound-IQ in Action</span>
+        <h2 class="section-heading" id="video-heading">Watch the Wound-IQ Platform in Action</h2>
+        <p class="section-sub">
+          Discover how Wound-IQ transforms wound care with AI-powered intelligence — from early detection to automated documentation.
+        </p>
+      </div>
+
+      <div class="video-wrapper reveal">
+        <!-- Native video using original WoundIQ video file -->
+        <video id="wiq-product-video" playsinline preload="metadata" poster="./media/card-1.jpg" class="video-player">
+          <source src="./Wound IQ trailer video  (4).mp4" type="video/mp4">
+          <!-- Fallback stock clinical video if local file is moved -->
+          <source src="./media/card-1.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+
+        <!-- Custom centered play button in site's green -->
+        <div class="custom-play-overlay" id="video-play-overlay" role="button" aria-label="Play Wound-IQ Product Video">
+          <div class="custom-play-btn">
+            <svg viewBox="0 0 24 24"><polygon points="8,5 19,12 8,19"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ 5. PLATFORM (#platform) ═══════════════════════ -->
+  <section class="site-section" id="platform" aria-labelledby="platform-heading">
+    <div class="section-container">
+      <div class="section-header reveal">
+        <span class="section-badge">Platform Capabilities</span>
+        <h2 class="section-heading" id="platform-heading">Built for Clinical Teams. Designed for Enterprise Healthcare.</h2>
+        <p class="section-sub">
+          An enterprise-grade wound intelligence infrastructure engineered for hospital networks, skilled nursing facilities, and post-acute care providers.
+        </p>
+      </div>
+
+      <div class="grid-3">
+        <div class="content-card reveal">
+          <div class="card-icon-pill">
+            <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <h3 class="card-title">AI Deterioration Detection</h3>
+          <p class="card-desc">Identify elevated risk and pressure trajectory before tissue conditions visibly worsen, enabling proactive intervention.</p>
+        </div>
+
+        <div class="content-card reveal" style="transition-delay: 0.1s;">
+          <div class="card-icon-pill">
+            <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <h3 class="card-title">Longitudinal Trend Analysis</h3>
+          <p class="card-desc">Track wound healing velocity, tissue granulation, and depth progression across days, weeks, and care transitions.</p>
+        </div>
+
+        <div class="content-card reveal" style="transition-delay: 0.2s;">
+          <div class="card-icon-pill">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          </div>
+          <h3 class="card-title">Clinical Decision Support</h3>
+          <p class="card-desc">Transparent evidence-based insights that support clinician judgment while keeping licensed professionals firmly in control.</p>
+        </div>
+
+        <div class="content-card reveal">
+          <div class="card-icon-pill">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </div>
+          <h3 class="card-title">Standardized Assessments</h3>
+          <p class="card-desc">Native compliance with PUSH Tool 3.0, Braden Scale, and Mini Nutritional Assessment (MNA) evidence-based frameworks.</p>
+        </div>
+
+        <div class="content-card reveal" style="transition-delay: 0.1s;">
+          <div class="card-icon-pill">
+            <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/></svg>
+          </div>
+          <h3 class="card-title">Enterprise Analytics</h3>
+          <p class="card-desc">Gain facility-wide and organization-wide visibility into wound performance, healing rates, and audit preparedness.</p>
+        </div>
+
+        <div class="content-card reveal" style="transition-delay: 0.2s;">
+          <div class="card-icon-pill">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3 class="card-title">HIPAA & EHR Interoperability</h3>
+          <p class="card-desc">Enterprise-grade security, role-based access control, and FHIR R4-ready architecture engineered for seamless EMR integration.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ 6. BENEFITS (#benefits) ═══════════════════════ -->
+  <section class="site-section bg-alt" id="benefits" aria-labelledby="benefits-heading">
+    <div class="section-container">
+      <div class="section-header reveal">
+        <span class="section-badge">Value Across Every Level</span>
+        <h2 class="section-heading" id="benefits-heading">Measurable Impact for Every Stakeholder</h2>
+        <p class="section-sub">
+          Empowering clinicians, nursing leadership, and healthcare executives with predictive foresight and automated clinical documentation.
+        </p>
+      </div>
+
+      <div class="grid-4">
+        <div class="content-card reveal">
+          <div class="card-icon-pill">
+            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </div>
+          <h3 class="card-title">For Clinicians</h3>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 14.5px; color: var(--subline);">
+            <li>✓ Earlier awareness of risk</li>
+            <li>✓ Smarter patient prioritization</li>
+            <li>✓ Drastically reduced paperwork</li>
+            <li>✓ Greater diagnostic confidence</li>
+          </ul>
+        </div>
+
+        <div class="content-card reveal" style="transition-delay: 0.1s;">
+          <div class="card-icon-pill">
+            <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+          </div>
+          <h3 class="card-title">For Nursing Directors</h3>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 14.5px; color: var(--subline);">
+            <li>✓ Facility-wide wound oversight</li>
+            <li>✓ Documentation consistency</li>
+            <li>✓ Superior survey readiness</li>
+            <li>✓ Quality initiative validation</li>
+          </ul>
+        </div>
+
+        <div class="content-card reveal" style="transition-delay: 0.2s;">
+          <div class="card-icon-pill">
+            <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          </div>
+          <h3 class="card-title">For Administrators</h3>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 14.5px; color: var(--subline);">
+            <li>✓ Reduced liability exposure</li>
+            <li>✓ Lower complication costs</li>
+            <li>✓ Improved staff retention</li>
+            <li>✓ Accurate quality reporting</li>
+          </ul>
+        </div>
+
+        <div class="content-card reveal" style="transition-delay: 0.3s;">
+          <div class="card-icon-pill">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h3 class="card-title">For Executives</h3>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 14.5px; color: var(--subline);">
+            <li>✓ Multi-facility analytics</li>
+            <li>✓ Defensible clinical quality</li>
+            <li>✓ Enterprise standard of care</li>
+            <li>✓ Protection of organization trust</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ 7. PILOT PROGRAM (#pilot) ═══════════════════════ -->
+  <section class="site-section" id="pilot" aria-labelledby="pilot-heading">
+    <div class="section-container">
+      <div class="section-header reveal">
+        <span class="section-badge">Pilot Program</span>
+        <h2 class="section-heading" id="pilot-heading">Experience Wound-IQ in Your Own Environment</h2>
+        <p class="section-sub">
+          Most healthcare organizations don't need another sales pitch—they need clinical evidence. Evaluate Wound-IQ with your own teams, workflows, and patients through our structured 30-day trial.
+        </p>
+      </div>
+
+      <div class="pilot-grid reveal">
+        <div>
+          <h3 style="font-family: var(--font-headline); font-size: 24px; font-weight: 700; color: var(--ink); margin-bottom: 12px;">The Wound-IQ Clinical Impact Pilot</h3>
+          <p style="font-size: 15px; line-height: 1.6; color: var(--subline); margin-bottom: 24px;">
+            A low-risk, fully supported 30-day evaluation designed to demonstrate concrete improvements in deterioration lead time, nursing efficiency, and documentation compliance.
+          </p>
+
+          <h4 style="font-size: 15px; font-weight: 700; color: var(--forest-green); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.04em;">Every Pilot Includes:</h4>
+          <ul class="pilot-checklist">
+            <li class="pilot-check-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Full platform access</span></li>
+            <li class="pilot-check-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Clinical onboarding</span></li>
+            <li class="pilot-check-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Staff training</span></li>
+            <li class="pilot-check-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Workflow optimization</span></li>
+            <li class="pilot-check-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Dedicated informatics support</span></li>
+            <li class="pilot-check-item"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Executive outcomes presentation</span></li>
+          </ul>
+        </div>
+
+        <div class="pilot-card-box">
+          <div>
+            <h4 style="font-family: var(--font-headline); font-size: 18px; font-weight: 700; color: var(--ink); margin-bottom: 12px;">What You'll Measure</h4>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 10px; font-size: 14px; color: var(--subline);">
+              <li>✓ Early-warning detection lead time (avg. 4.2 days)</li>
+              <li>✓ Documentation audit consistency gains</li>
+              <li>✓ Clinician workflow adoption rates</li>
+              <li>✓ Reductions in preventable complication escalations</li>
+            </ul>
+          </div>
+
+          <div style="margin-top: 28px;">
+            <a href="#demo" class="pill-btn pill-btn-green" style="width: 100%; height: 50px; font-size: 15px; justify-content: center;">Apply for a Clinical Impact Pilot →</a>
+            <p style="text-align: center; font-size: 12px; color: var(--subline); margin-top: 10px;">No long-term commitment. No disruption to your existing workflows.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ 8. DEMO SECTION (#demo) — INLINE FORM ═══════════════════════ -->
+  <section class="demo-section" id="demo" aria-labelledby="demo-heading">
+    <div class="demo-container">
+      <div class="section-header reveal">
+        <span class="section-badge">Get Started</span>
+        <h2 class="section-heading" id="demo-heading">Request a Personalized Walkthrough</h2>
+        <p class="section-sub">
+          Fill in your details below and our clinical informatics team will reach out within one business day to schedule a tailored walkthrough for your organization.
+        </p>
+      </div>
+
+      <div class="demo-form-wrapper reveal">
+        <form id="demo-form" action="https://formsubmit.co/woundiq@ehealthcare.ai" method="POST">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="first-name">First Name <span>*</span></label>
+              <input type="text" id="first-name" name="first_name" placeholder="Jane" required autocomplete="given-name">
+            </div>
+            <div class="form-group">
+              <label for="last-name">Last Name <span>*</span></label>
+              <input type="text" id="last-name" name="last_name" placeholder="Smith" required autocomplete="family-name">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="work-email">Work Email <span>*</span></label>
+            <input type="email" id="work-email" name="email" placeholder="jane.smith@facility.com" required autocomplete="email">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="title">Your Title <span>*</span></label>
+              <input type="text" id="title" name="title" placeholder="Director of Nursing" required>
+            </div>
+            <div class="form-group">
+              <label for="company">Healthcare Organization <span>*</span></label>
+              <input type="text" id="company" name="company" placeholder="Your Facility / System" required autocomplete="organization">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" name="phone" placeholder="+1 (555) 000-0000" autocomplete="tel">
+            </div>
+            <div class="form-group">
+              <label for="care-setting">Care Setting <span>*</span></label>
+              <select id="care-setting" name="care_setting" required>
+                <option value="" disabled selected>Select care setting…</option>
+                <option>Skilled Nursing Facility</option>
+                <option>Assisted Living Community</option>
+                <option>Hospital / Health System</option>
+                <option>Home Healthcare Agency</option>
+                <option>Wound Care Clinic</option>
+                <option>Contract Therapy Provider</option>
+                <option>Senior Living Organization</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="interest">Solutions of Interest <span>*</span></label>
+            <input type="text" id="interest" name="interest" value="Wound-IQ Predictive Intelligence Platform" required>
+          </div>
+
+          <div class="form-group">
+            <label for="comments">Specific Clinical Objectives or Questions</label>
+            <textarea id="comments" name="comments" placeholder="Tell us about your facility goals or upcoming quality initiatives…"></textarea>
+          </div>
+
+          <input type="hidden" name="_subject" value="New WoundIQ Demo Request">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="table">
+
+          <div class="form-submit-row">
+            <button type="submit" class="form-submit-btn">Request Your Demo →</button>
+          </div>
+
+          <div class="form-trust-grid">
+            <div class="form-trust-item"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><span>HIPAA-aligned handling</span></div>
+            <div class="form-trust-item"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span>Never shared with third parties</span></div>
+            <div class="form-trust-item"><svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><span>1 business day response</span></div>
+            <div class="form-trust-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>Tailored walkthrough</span></div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div>
+          <div class="footer-brand-title">WoundIQ</div>
+          <p class="footer-tagline">AI-Powered Wound Intelligence for Proactive Healthcare Organizations.</p>
+        </div>
+        <div>
+          <div class="footer-col-title">Navigation</div>
+          <ul class="footer-links">
+            <li><a href="#problem">The Problem</a></li>
+            <li><a href="#solution">The Solution</a></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#video">Product Video</a></li>
+            <li><a href="#platform">Platform</a></li>
+            <li><a href="#benefits">Benefits</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Programs</div>
+          <ul class="footer-links">
+            <li><a href="#pilot">Clinical Impact Pilot</a></li>
+            <li><a href="#demo">Request a Demo</a></li>
+            <li><a href="#platform">Enterprise Analytics</a></li>
+            <li><a href="#platform">EMR Interoperability</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer-col-title">Contact</div>
+          <ul class="footer-links">
+            <li>Lisle, Illinois</li>
+            <li><a href="mailto:woundiq@ehealthcare.ai">woundiq@ehealthcare.ai</a></li>
+            <li>Phone: +1 (847) 812-0026</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© <span id="copyright-year">2026</span> Wound-IQ. All rights reserved.</p>
+        <p style="color: rgba(255, 255, 255, 0.45);">AI-Powered Clinical Wound Intelligence</p>
+      </div>
+
+      <p class="footer-disclaimer">
+        Disclaimer: Wound-IQ is intended to support licensed healthcare professionals and is not a substitute for professional clinical judgment, diagnosis, or treatment decisions. All patient care decisions remain the responsibility of qualified healthcare providers.
+      </p>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════ CHATBOT WIDGET (Restored from original) ═══════════════════════ -->
+  <button id="wiq-chat-btn" aria-label="Open WoundIQ interactive FAQ chatbot" aria-haspopup="dialog"
+    aria-expanded="false">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="28" height="28" fill="#ffffff">
+      <path
+        d="M12 2C6.477 2 2 6.131 2 11.22c0 2.87 1.433 5.419 3.682 7.076-.118.847-.532 2.656-1.503 3.655 0 0 2.274.195 4.398-1.468a10.873 10.873 0 0 0 3.423.557c5.523 0 10-4.13 10-9.22C22 6.131 17.523 2 12 2zm0 16.5c-1.127 0-2.203-.211-3.18-.595l-.442-.173-2.138.868.514-1.63-.231-.383C5.176 14.887 4 13.119 4 11.22c0-4.256 3.589-7.72 8-7.72s8 3.464 8 7.72-3.589 7.72-8 7.72z" />
+    </svg>
+  </button>
+
+  <div id="wiq-chat-widget" role="dialog" aria-label="WoundIQ interactive FAQ chatbot" aria-modal="true">
+    <div id="wiq-chat-header">
+      <div class="wiq-header-title-area">
+        <img id="nav-logo-img-chat" src="./logo.png" alt="WoundIQ Logo" class="wiq-header-logo">
+        <span class="wiq-header-title">WoundIQ Support</span>
+      </div>
+      <button id="wiq-chat-close" aria-label="Close chatbot window">&times;</button>
+    </div>
+    <div id="wiq-chat-actions">
+      <button class="wiq-action-btn" id="wiq-action-demo">Request Demo</button>
+      <button class="wiq-action-btn" id="wiq-action-contact">Contact Us</button>
+    </div>
+    <div id="wiq-chat-body"></div>
+    <div id="wiq-search-area">
+      <div class="wiq-search-wrapper">
+        <input type="text" id="wiq-search-input" placeholder="Ask a question..." aria-label="Ask a question">
+        <button id="wiq-search-clear" aria-label="Clear input" style="display: none;">&times;</button>
+      </div>
+      <button id="wiq-search-submit" aria-label="Send message">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ── SVG Fallback ClipPath Defs ── -->
+  <svg class="svg-defs-container" aria-hidden="true">
+    <defs id="svg-defs"></defs>
+  </svg>
+
+  <!-- ═══════════════════════ CLIENT SCRIPTS ═══════════════════════ -->
+  <script src="js/main.js" defer></script>
+  <script>
+    (function () {
+      'use strict';
+
+      /* ── 1. STICKY NAV SCROLL & SCROLL-SPY ── */
+      const mainNav = document.getElementById('main-nav');
+      const navLinks = document.querySelectorAll('.nav-links a[href^="#"], .mobile-nav-links a[href^="#"]');
+      const sections = document.querySelectorAll('section[id], header[id]');
+
+      window.addEventListener('scroll', function () {
+        if (mainNav) {
+          mainNav.classList.toggle('is-scrolled', window.scrollY > 20);
+        }
+      }, { passive: true });
+
+      // IntersectionObserver Scroll-Spy
+      const spyObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            navLinks.forEach(function (link) {
+              const href = link.getAttribute('href');
+              if (href === '#' + id) {
+                link.classList.add('active');
+              } else {
+                link.classList.remove('active');
+              }
+            });
+          }
+        });
+      }, { rootMargin: '-25% 0px -65% 0px' });
+
+      sections.forEach(function (sec) {
+        spyObserver.observe(sec);
+      });
+
+      /* ── 2. MOBILE MENU TOGGLE ── */
+      const mobileToggle = document.getElementById('mobile-toggle');
+      const mobilePanel = document.getElementById('mobile-panel');
+      const mobileLinks = document.querySelectorAll('.mobile-link');
+
+      function closeMobileMenu() {
+        if (mobileToggle) {
+          mobileToggle.classList.remove('is-active');
+          mobileToggle.setAttribute('aria-expanded', 'false');
+        }
+        if (mobilePanel) {
+          mobilePanel.classList.remove('is-open');
+          mobilePanel.setAttribute('aria-hidden', 'true');
+        }
+        document.body.style.overflow = '';
+      }
+
+      function openMobileMenu() {
+        if (mobileToggle) {
+          mobileToggle.classList.add('is-active');
+          mobileToggle.setAttribute('aria-expanded', 'true');
+        }
+        if (mobilePanel) {
+          mobilePanel.classList.add('is-open');
+          mobilePanel.setAttribute('aria-hidden', 'false');
+        }
+        document.body.style.overflow = 'hidden';
+      }
+
+      if (mobileToggle) {
+        mobileToggle.addEventListener('click', function () {
+          const isOpen = mobilePanel && mobilePanel.classList.contains('is-open');
+          if (isOpen) closeMobileMenu();
+          else openMobileMenu();
+        });
+      }
+
+      mobileLinks.forEach(function (link) {
+        link.addEventListener('click', function () {
+          closeMobileMenu();
+        });
+      });
+
+      /* ── 3. GENTLE SCROLL REVEALS ── */
+      const reveals = document.querySelectorAll('.reveal');
+      if (reveals.length > 0) {
+        const revealObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-revealed');
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+        reveals.forEach(function (el) {
+          revealObserver.observe(el);
+        });
+      }
+
+      /* ── 4. PRODUCT VIDEO INLINE CONTROLS ── */
+      const productVideo = document.getElementById('wiq-product-video');
+      const playOverlay = document.getElementById('video-play-overlay');
+
+      if (productVideo && playOverlay) {
+        playOverlay.addEventListener('click', function () {
+          productVideo.play();
+          productVideo.setAttribute('controls', 'true');
+          playOverlay.classList.add('hidden');
+        });
+
+        productVideo.addEventListener('pause', function () {
+          if (!productVideo.seeking) {
+            playOverlay.classList.remove('hidden');
+          }
+        });
+
+        productVideo.addEventListener('play', function () {
+          playOverlay.classList.add('hidden');
+        });
+
+        productVideo.addEventListener('ended', function () {
+          playOverlay.classList.remove('hidden');
+        });
+      }
+
+      /* ════════════════════════════════════════════════════════════════
+         5. HERO CURVED VIDEO CAROUSEL ENGINE (HEALTHCARE MEDIA)
+         10 tall cards with muted, looping clinical videos & posters
+         Same exact cylinder math, curve, dimensions, & momentum drag
+         ════════════════════════════════════════════════════════════════ */
+      const TOTAL_CARDS = 10;
+      const BASE_PITCH = 196;
+      const TRACK_LOOP = TOTAL_CARDS * BASE_PITCH; // 1960u
+      const AUTO_SCROLL_SPEED = 50; // u/sec
+
+      const carouselTrack = document.getElementById('carousel-track');
+      const mobileCardsBand = document.getElementById('mobile-cards-band');
+      const heroSection = document.getElementById('hero');
+      const svgDefs = document.getElementById('svg-defs');
+
+      // Healthcare clinical media assets downloaded locally in /media/
+      const clinicalClips = [
+        { video: './media/card-1.mp4', poster: './media/card-1.jpg', title: 'Nurse Bandaging and Dressing Care' },
+        { video: './media/card-2.mp4', poster: './media/card-2.jpg', title: 'Nurse in Scrubs with Stethoscope' },
+        { video: './media/card-3.mp4', poster: './media/card-3.jpg', title: 'Reviewing Clinical Medical Records' },
+        { video: './media/card-4.mp4', poster: './media/card-4.jpg', title: 'Clinician Documenting with Clipboard' },
+        { video: './media/card-5.mp4', poster: './media/card-5.jpg', title: 'Nurse Reading Clinical Chart in Ward' },
+        { video: './media/card-6.mp4', poster: './media/card-6.jpg', title: 'Clinician Patient Care in Bed' },
+        { video: './media/card-7.mp4', poster: './media/card-7.jpg', title: 'Clinician Using Tablet for Documentation' },
+        { video: './media/card-8.mp4', poster: './media/card-8.jpg', title: 'Care Team Discussion in Hospital Hallway' },
+        { video: './media/card-9.mp4', poster: './media/card-9.jpg', title: 'Doctor Monitoring Patient in Clinic' },
+        { video: './media/card-10.mp4', poster: './media/card-10.jpg', title: 'Care Team Clinical Coordination' }
+      ];
+
+      const cards = [];
+      const videos = [];
+
+      for (let i = 0; i < TOTAL_CARDS; i++) {
+        const item = clinicalClips[i % clinicalClips.length];
+        const card = document.createElement('div');
+        card.className = 'carousel-card';
+        card.id = `card-${i}`;
+
+        card.innerHTML = `
+          <div class="card-media-wrap">
+            <img class="card-poster" src="${item.poster}" alt="${item.title}" draggable="false" />
+            <video class="card-video" playsinline muted loop preload="metadata">
+              <source src="${item.video}" type="video/mp4" />
+            </video>
+            <div class="card-tint-overlay" aria-hidden="true"></div>
+          </div>
+        `;
+
+        carouselTrack.appendChild(card);
+        cards.push(card);
+
+        const videoEl = card.querySelector('.card-video');
+        videos.push(videoEl);
+
+        // Fallback clipPath SVG definition
+        if (svgDefs) {
+          const clipPathEl = document.createElementNS('http://www.w3.org/2000/svg', 'clipPath');
+          clipPathEl.id = `card-clip-path-${i}`;
+          clipPathEl.setAttribute('clipPathUnits', 'userSpaceOnUse');
+          const pathEl = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          pathEl.id = `card-clip-d-${i}`;
+          clipPathEl.appendChild(pathEl);
+          svgDefs.appendChild(clipPathEl);
+        }
+      }
+
+      // Video playback & fade-in when ready
+      videos.forEach(function (vid) {
+        vid.addEventListener('loadeddata', function () {
+          vid.classList.add('is-ready');
+        });
+        vid.addEventListener('playing', function () {
+          vid.classList.add('is-ready');
+        });
+      });
+
+      // Lazy video play/pause on intersection
+      let isHeroInView = true;
+      const heroObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          isHeroInView = entry.isIntersecting;
+          if (isHeroInView && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            videos.forEach(function (v) { v.play().catch(function () {}); });
+          } else {
+            videos.forEach(function (v) { v.pause(); });
+          }
+        });
+      }, { threshold: 0.1 });
+
+      if (heroSection) heroObserver.observe(heroSection);
+
+      /* ── Carousel Dragging Physics ── */
+      let scrollX = 0;
+      let velocity = 0;
+      let isDragging = false;
+      let lastPointerX = 0;
+      let lastPointerTime = performance.now();
+
+      function getFrameScale() {
+        const isPhone = window.innerWidth <= 820;
+        if (isPhone) {
+          return { u: window.innerWidth / 640, isPhone: true };
+        } else {
+          return { u: Math.min(window.innerWidth / 1440, window.innerHeight / 1080), isPhone: false };
+        }
+      }
+
+      function onPointerDown(e) {
+        isDragging = true;
+        velocity = 0;
+        lastPointerX = e.clientX;
+        lastPointerTime = performance.now();
+        carouselTrack.classList.add('is-dragging');
+        try { carouselTrack.setPointerCapture(e.pointerId); } catch (_) {}
+      }
+
+      function onPointerMove(e) {
+        if (!isDragging) return;
+        const now = performance.now();
+        const dt = Math.max((now - lastPointerTime) / 1000, 0.001);
+        const { u } = getFrameScale();
+        const dx_px = e.clientX - lastPointerX;
+        const dx_u = dx_px / u;
+
+        scrollX -= dx_u;
+        velocity = -dx_u / dt;
+
+        lastPointerX = e.clientX;
+        lastPointerTime = now;
+      }
+
+      function onPointerUp(e) {
+        if (!isDragging) return;
+        isDragging = false;
+        carouselTrack.classList.remove('is-dragging');
+        try { carouselTrack.releasePointerCapture(e.pointerId); } catch (_) {}
+        if (velocity > 1400) velocity = 1400;
+        if (velocity < -1400) velocity = -1400;
+      }
+
+      carouselTrack.addEventListener('pointerdown', onPointerDown);
+      window.addEventListener('pointermove', onPointerMove);
+      window.addEventListener('pointerup', onPointerUp);
+      window.addEventListener('pointercancel', onPointerUp);
+
+      mobileCardsBand?.addEventListener('pointerdown', onPointerDown);
+
+      /* ── Web Animations Clock Driving the Carousel ── */
+      const animClock = document.documentElement.animate([], { duration: 1e9 });
+      let lastClockTime = animClock.currentTime || performance.now();
+
+      function updateCarouselFrame() {
+        const currentClockTime = animClock.currentTime || performance.now();
+        const dt = Math.min((currentClockTime - lastClockTime) / 1000, 0.1);
+        lastClockTime = currentClockTime;
+
+        const { u, isPhone } = getFrameScale();
+
+        if (!isDragging) {
+          velocity *= Math.pow(0.05, dt);
+          if (Math.abs(velocity) < 0.5) velocity = 0;
+          scrollX += (AUTO_SCROLL_SPEED + velocity) * dt;
+        }
+
+        scrollX = (scrollX % TRACK_LOOP + TRACK_LOOP) % TRACK_LOOP;
+
+        for (let i = 0; i < TOTAL_CARDS; i++) {
+          const card = cards[i];
+
+          let t = (i * BASE_PITCH - scrollX) % TRACK_LOOP;
+          if (t > TRACK_LOOP / 2) t -= TRACK_LOOP;
+          if (t < -TRACK_LOOP / 2) t += TRACK_LOOP;
+
+          // Outward push formula from brief
+          const x = 720 + t * (1 + 0.083 * Math.pow(t / 706, 2));
+          const d = Math.abs(x - 720) / 706;
+
+          // Geometry
+          const W = 170 + 48 * d * d;
+          const xL = x - W / 2;
+          const xR = x + W / 2;
+
+          const qL = Math.abs(xL - 720) / 706;
+          const qR = Math.abs(xR - 720) / 706;
+
+          const hL = 280 + 92 * Math.pow(qL, 2.6);
+          const hR = 280 + 92 * Math.pow(qR, 2.6);
+
+          let yC = 687 - 12 * d * d;
+          if (isPhone) {
+            yC = 125 / u; // centered in 250px band
+          }
+
+          const yTL_abs = yC - hL / 2;
+          const yTR_abs = yC - hR / 2;
+          const yBL_abs = yC + hL / 2;
+          const yBR_abs = yC + hR / 2;
+
+          const minY = Math.min(yTL_abs, yTR_abs);
+          const maxY = Math.max(yBL_abs, yBR_abs);
+          const H_box = maxY - minY;
+
+          const localTL_y = yTL_abs - minY;
+          const localTR_y = yTR_abs - minY;
+          const localBL_y = yBL_abs - minY;
+          const localBR_y = yBR_abs - minY;
+
+          const posX_px = xL * u;
+          const posY_px = minY * u;
+          const W_px = W * u;
+          const H_px = H_box * u;
+
+          card.style.transform = `translate3d(${posX_px.toFixed(2)}px, ${posY_px.toFixed(2)}px, 0)`;
+          card.style.width = `${W_px.toFixed(2)}px`;
+          card.style.height = `${H_px.toFixed(2)}px`;
+
+          // 15u rounded corners quad path
+          const r_px = Math.min(15 * u, W_px / 2, (hL * u) / 2, (hR * u) / 2);
+          const tl_px = localTL_y * u;
+          const tr_px = localTR_y * u;
+          const bl_px = localBL_y * u;
+          const br_px = localBR_y * u;
+
+          const pathStr = `M ${r_px.toFixed(1)} ${tl_px.toFixed(1)} L ${(W_px - r_px).toFixed(1)} ${tr_px.toFixed(1)} Q ${W_px.toFixed(1)} ${tr_px.toFixed(1)} ${W_px.toFixed(1)} ${(tr_px + r_px).toFixed(1)} L ${W_px.toFixed(1)} ${(br_px - r_px).toFixed(1)} Q ${W_px.toFixed(1)} ${br_px.toFixed(1)} ${(W_px - r_px).toFixed(1)} ${br_px.toFixed(1)} L ${r_px.toFixed(1)} ${bl_px.toFixed(1)} Q 0 ${bl_px.toFixed(1)} 0 ${(bl_px - r_px).toFixed(1)} L 0 ${(tl_px + r_px).toFixed(1)} Q 0 ${tl_px.toFixed(1)} ${r_px.toFixed(1)} ${tl_px.toFixed(1)} Z`;
+
+          card.style.clipPath = `path('${pathStr}')`;
+          card.style.webkitClipPath = `path('${pathStr}')`;
+
+          const clipD = document.getElementById(`card-clip-d-${i}`);
+          if (clipD) clipD.setAttribute('d', pathStr);
+        }
+
+        requestAnimationFrame(updateCarouselFrame);
+      }
+
+      requestAnimationFrame(updateCarouselFrame);
+
+      /* ── 6. COPYRIGHT YEAR ── */
+      const yearEl = document.getElementById('copyright-year');
+      if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    })();
+  </script>
+</body>
+</html>
