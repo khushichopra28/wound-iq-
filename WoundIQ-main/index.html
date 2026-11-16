@@ -70,10 +70,14 @@
     html {
       scroll-behavior: smooth;
       background-color: var(--page-bg);
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100%;
     }
 
     body {
       width: 100%;
+      max-width: 100%;
       min-height: 100vh;
       background-color: var(--page-bg);
       font-family: var(--font-ui);
@@ -564,6 +568,10 @@
       width: 100%;
       padding: 100px 24px;
       position: relative;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .site-section.bg-alt {
@@ -574,17 +582,30 @@
 
     .section-container {
       max-width: 1200px;
-      margin: 0 auto;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      margin-inline: auto;
     }
 
+    /* ── Single Site-Wide Shared Rule for All Section Headers (Issue 1 Fix) ── */
     .section-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       text-align: center;
-      max-width: 760px;
-      margin: 0 auto 56px auto;
+      width: 100%;
+      max-width: 840px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-inline: auto;
+      margin-bottom: 56px;
     }
 
     .section-badge {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       padding: 5px 16px;
       border-radius: var(--radius-pill);
       background: var(--mint-badge);
@@ -593,6 +614,8 @@
       font-weight: 600;
       letter-spacing: 0.02em;
       margin-bottom: 16px;
+      text-align: center;
+      align-self: center;
     }
 
     .section-heading {
@@ -603,12 +626,22 @@
       letter-spacing: -0.025em;
       color: var(--ink);
       margin-bottom: 16px;
+      width: 100%;
+      text-align: center;
+      align-self: center;
     }
 
     .section-sub {
       font-size: clamp(16px, 1.4vw, 18px);
       line-height: 1.65;
       color: var(--subline);
+      max-width: 720px;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      margin-inline: auto;
+      text-align: center;
+      align-self: center;
     }
 
     /* ── Gentle Fade-Up Reveal Animation ── */
@@ -864,11 +897,18 @@
       background: rgba(218, 231, 199, 0.12);
       border-top: 1px solid rgba(8, 72, 45, 0.06);
       border-bottom: 1px solid rgba(8, 72, 45, 0.06);
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .video-container {
       max-width: 980px;
-      margin: 0 auto;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      margin-inline: auto;
       text-align: center;
     }
 
@@ -993,11 +1033,18 @@
       padding: 100px 24px;
       background: #FFFFFF;
       border-top: 1px solid rgba(8, 72, 45, 0.08);
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .demo-container {
       max-width: 1100px;
-      margin: 0 auto;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      margin-inline: auto;
     }
 
     .demo-form-wrapper {
@@ -1124,7 +1171,10 @@
 
     .footer-container {
       max-width: 1200px;
-      margin: 0 auto;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      margin-inline: auto;
     }
 
     .footer-top {
@@ -1238,7 +1288,8 @@
       }
 
       .hero-frame {
-        width: 100vw;
+        width: 100%;
+        max-width: 100%;
         height: auto;
         min-height: 600px;
         display: flex;
@@ -1280,7 +1331,8 @@
 
       .mobile-cards-band {
         position: relative;
-        width: 100vw;
+        width: 100%;
+        max-width: 100%;
         height: 250px;
         overflow: hidden;
         margin: 10px 0 28px 0;
@@ -1993,7 +2045,7 @@
   <!-- Placed right after "How It Works" and before "Platform" as specified in Requirement 4 -->
   <section class="video-section" id="video" aria-labelledby="video-heading">
     <div class="video-container">
-      <div class="section-header reveal" style="margin-bottom: 36px;">
+      <div class="section-header reveal">
         <span class="section-badge">See Wound-IQ in Action</span>
         <h2 class="section-heading" id="video-heading">Watch the Wound-IQ Platform in Action</h2>
         <p class="section-sub">
@@ -2002,11 +2054,21 @@
       </div>
 
       <div class="video-wrapper reveal">
-        <!-- Native video using original WoundIQ video file -->
-        <video id="wiq-product-video" playsinline preload="metadata" poster="./media/card-1.jpg" class="video-player">
-          <source src="./Wound IQ trailer video  (4).mp4" type="video/mp4">
-          <!-- Fallback stock clinical video if local file is moved -->
-          <source src="./media/card-1.mp4" type="video/mp4">
+        <!-- 
+          ════════════════════════════════════════════════════════════════
+          TODO: VIDEO CDN URL PLACEMENT
+          To host off the Vercel deployment (e.g. Cloudflare Stream, Bunny Stream, Mux, or Vercel Blob):
+          Paste your hosted streaming URL into the src attributes below.
+          Example: https://iframe.videodelivery.net/YOUR_ID or https://vz-...b-cdn.net/video.mp4
+          ════════════════════════════════════════════════════════════════
+        -->
+        <video id="wiq-product-video" playsinline preload="none" poster="./media/trailer-poster.webp" class="video-player">
+          <!-- WebM (VP9) served first for modern browsers (6.1 MB, faststart streaming) -->
+          <source src="./media/woundiq-trailer.webm" type="video/webm">
+          <!-- Faststart H.264 MP4 (under 8MB: 5.3 MB 720p, +faststart enabled) -->
+          <source src="./media/woundiq-trailer-720p.mp4" type="video/mp4">
+          <!-- Full HD 1080p Faststart fallback -->
+          <source src="./media/woundiq-trailer-1080p.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
 
@@ -2477,12 +2539,33 @@
         });
       }
 
-      /* ── 4. PRODUCT VIDEO INLINE CONTROLS ── */
+      /* ── 4. PRODUCT VIDEO INLINE CONTROLS & LAZY LOADING ── */
       const productVideo = document.getElementById('wiq-product-video');
       const playOverlay = document.getElementById('video-play-overlay');
 
+      function initProductVideo() {
+        if (!productVideo) return;
+        if (productVideo.dataset.initialized) return;
+        productVideo.dataset.initialized = 'true';
+        productVideo.load();
+      }
+
+      const videoSection = document.getElementById('video');
+      if (videoSection) {
+        const videoObserver = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              initProductVideo();
+              videoObserver.unobserve(entry.target);
+            }
+          });
+        }, { rootMargin: '300px 0px 300px 0px' });
+        videoObserver.observe(videoSection);
+      }
+
       if (productVideo && playOverlay) {
         playOverlay.addEventListener('click', function () {
+          initProductVideo();
           productVideo.play();
           productVideo.setAttribute('controls', 'true');
           playOverlay.classList.add('hidden');
@@ -2518,18 +2601,18 @@
       const heroSection = document.getElementById('hero');
       const svgDefs = document.getElementById('svg-defs');
 
-      // Healthcare clinical media assets downloaded locally in /media/
+      // Optimized clinical media assets: WebM (VP9) + H.264 +faststart MP4 (<180KB) + WebP posters (<30KB)
       const clinicalClips = [
-        { video: './media/card-1.mp4', poster: './media/card-1.jpg', title: 'Nurse Bandaging and Dressing Care' },
-        { video: './media/card-2.mp4', poster: './media/card-2.jpg', title: 'Nurse in Scrubs with Stethoscope' },
-        { video: './media/card-3.mp4', poster: './media/card-3.jpg', title: 'Reviewing Clinical Medical Records' },
-        { video: './media/card-4.mp4', poster: './media/card-4.jpg', title: 'Clinician Documenting with Clipboard' },
-        { video: './media/card-5.mp4', poster: './media/card-5.jpg', title: 'Nurse Reading Clinical Chart in Ward' },
-        { video: './media/card-6.mp4', poster: './media/card-6.jpg', title: 'Clinician Patient Care in Bed' },
-        { video: './media/card-7.mp4', poster: './media/card-7.jpg', title: 'Clinician Using Tablet for Documentation' },
-        { video: './media/card-8.mp4', poster: './media/card-8.jpg', title: 'Care Team Discussion in Hospital Hallway' },
-        { video: './media/card-9.mp4', poster: './media/card-9.jpg', title: 'Doctor Monitoring Patient in Clinic' },
-        { video: './media/card-10.mp4', poster: './media/card-10.jpg', title: 'Care Team Clinical Coordination' }
+        { mp4: './media/card-1.mp4', webm: './media/card-1.webm', poster: './media/card-1.webp', jpg: './media/card-1.jpg', title: 'Nurse Bandaging and Dressing Care' },
+        { mp4: './media/card-2.mp4', webm: './media/card-2.webm', poster: './media/card-2.webp', jpg: './media/card-2.jpg', title: 'Nurse in Scrubs with Stethoscope' },
+        { mp4: './media/card-3.mp4', webm: './media/card-3.webm', poster: './media/card-3.webp', jpg: './media/card-3.jpg', title: 'Reviewing Clinical Medical Records' },
+        { mp4: './media/card-4.mp4', webm: './media/card-4.webm', poster: './media/card-4.webp', jpg: './media/card-4.jpg', title: 'Clinician Documenting with Clipboard' },
+        { mp4: './media/card-5.mp4', webm: './media/card-5.webm', poster: './media/card-5.webp', jpg: './media/card-5.jpg', title: 'Nurse Reading Clinical Chart in Ward' },
+        { mp4: './media/card-6.mp4', webm: './media/card-6.webm', poster: './media/card-6.webp', jpg: './media/card-6.jpg', title: 'Clinician Patient Care in Bed' },
+        { mp4: './media/card-7.mp4', webm: './media/card-7.webm', poster: './media/card-7.webp', jpg: './media/card-7.jpg', title: 'Clinician Using Tablet for Documentation' },
+        { mp4: './media/card-8.mp4', webm: './media/card-8.webm', poster: './media/card-8.webp', jpg: './media/card-8.jpg', title: 'Care Team Discussion in Hospital Hallway' },
+        { mp4: './media/card-9.mp4', webm: './media/card-9.webm', poster: './media/card-9.webp', jpg: './media/card-9.jpg', title: 'Doctor Monitoring Patient in Clinic' },
+        { mp4: './media/card-10.mp4', webm: './media/card-10.webm', poster: './media/card-10.webp', jpg: './media/card-10.jpg', title: 'Care Team Clinical Coordination' }
       ];
 
       const cards = [];
@@ -2543,9 +2626,13 @@
 
         card.innerHTML = `
           <div class="card-media-wrap">
-            <img class="card-poster" src="${item.poster}" alt="${item.title}" draggable="false" />
+            <picture>
+              <source srcset="${item.poster}" type="image/webp">
+              <img class="card-poster" src="${item.jpg}" alt="${item.title}" loading="lazy" decoding="async" draggable="false" />
+            </picture>
             <video class="card-video" playsinline muted loop preload="metadata">
-              <source src="${item.video}" type="video/mp4" />
+              <source src="${item.webm}" type="video/webm" />
+              <source src="${item.mp4}" type="video/mp4" />
             </video>
             <div class="card-tint-overlay" aria-hidden="true"></div>
           </div>
